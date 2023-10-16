@@ -1,0 +1,288 @@
+{
+    "site":{
+        "name": "XTDB",
+        "url": "https://xtdb.com",
+        "authorName": "JUXT LTD.",
+        "authorEmail": "hello@xtdb.com",
+        "feed": {
+            "title": "XTDB Blog",
+            "subtitle": "Engineering insights and development updates",
+            "url": "https://xtdb.com/feed.xml"
+        },
+        "analytics": {
+            "url": "https://bunseki.juxt.pro",
+            "siteId": "c5026354-28df-4f0c-a17d-43d1a01b2c94"
+        }
+    },
+    
+    "allDestinations": [
+        {
+          "id": "home",
+          "label": "Home",
+          "path": "/"
+        },
+        {
+          "id": "learn",
+          "label": "Learn",
+          "path": "/learn/"
+        },
+        {
+          "id": "docs",
+          "label": "Docs",
+          "path": "/docs/"
+        },
+        {
+          "id": "solutions",
+          "label": "Solutions",
+          "path": "/solutions/"
+        },
+        {
+          "id": "support",
+          "label": "Support",
+          "path": "/support"
+        },
+        {
+          "id": "blog",
+          "label": "Blog",
+          "path": "/blog/"
+        },
+        {
+          "id": "search",
+          "label": "Search",
+          "path": "#search"
+        },
+        {
+          "id": "privacy",
+          "label": "Privacy",
+          "path": "/privacy"
+        },
+        {
+          "id": "team",
+          "label": "Team",
+          "path": "/team"
+        },
+        {
+          "id": "terms",
+          "label": "Terms",
+          "path": "/terms"
+        },
+        {
+          "id": "tutorials",
+          "label": "Tutorials",
+          "path": "https://v1-docs.xtdb.com/tutorials"
+        },
+        {
+          "id": "guides",
+          "label": "Guides",
+          "path": "https://v1-docs.xtdb.com/guides"
+        },
+        {
+          "id": "concepts",
+          "label": "Concepts",
+          "path": "https://v1-docs.xtdb.com/concepts"
+        },
+        {
+          "id": "faq",
+          "label": "FAQ",
+          "path": "https://v1-docs.xtdb.com/resources/faq/"
+        },
+        {
+          "id": "production-support",
+          "label": "Production Support",
+          "path": "/support/production"
+        },
+        {
+          "id": "consulting",
+          "label": "Consulting",
+          "path": "/support/consulting"
+        },
+        {
+          "id": "training",
+          "label": "Training",
+          "path": "/support/training"
+        },
+        {
+          "id": "contact",
+          "label": "Contact",
+          "path": "/contact"
+        },
+        {
+          "id": "core2docs",
+          "label": "Core2 Docs",
+          "path": "https://core2docs.xtdb.com/"
+        },
+        {
+          "id": "github",
+          "icon": "github",
+          "label": "GitHub",
+          "path": "https://github.com/xtdb/xtdb",
+          "description": "Browse the project board and open issues, leave your comments, read the source."
+        },
+        {
+          "id": "discuss",
+          "icon": "discourse",
+          "label": "Discuss",
+          "path": "https://discuss.xtdb.com",
+          "description": "Community forums, troubleshooting, meetups & more."
+        },
+        {
+          "id": "zulip",
+          "icon": "zulip",
+          "label": "Zulip Chat",
+          "path": "https://juxt-oss.zulipchat.com/#narrow/stream/194466-xtdb",
+          "description": "Live chat with fellow users and developers."
+        },
+        {
+          "id": "twitter",
+          "icon": "twitter",
+          "label": "Twitter/Mastodon",
+          "path": "http://www.twitter.com/xtdb_com",
+          "description": "Follow @xtdb_com on Twitter or @xtdb@mastodon.social for daily updates."
+        },
+        {
+          "id": "mastodon",
+          "icon": "mastodon",
+          "label": "Mastodon",
+          "path": "https://mastodon.social/@xtdb",
+          "rel": "me",
+          "description": "Follow XTDB on Mastodon for daily updates."
+        },
+        {
+          "id": "partners",
+          "label": "Partner with us",
+          "path": "/pdfs/xtdb-partner-brief.pdf"
+        },
+        {
+          "id": "quickstart",
+          "label": "Quickstart",
+          "path": "https://v1-docs.xtdb.com/guides/quickstart"
+        },
+        {
+          "id": "stack-overflow",
+          "icon": "stack-overflow",
+          "label": "Stack Overflow",
+          "path": "https://stackoverflow.com/search?q=xtdb",
+          "description": "Get help and answer questions in the wider community."
+        },
+        {
+          "id": "mailinglist",
+          "icon": "mail",
+          "label": "Mailing List",
+          "path": "https://groups.google.com/u/0/a/xtdb.com/g/newsletter",
+          "description": "Receive our periodic newsletter and participate in user conversations."
+        },
+        {
+          "id": "archives",
+          "icon": "archive",
+          "label": "Archives",
+          "path": "https://groups.google.com/u/0/a/xtdb.com/g/newsletter",
+          "description": "Read older messages from Zulip and the mailing list."
+        }
+    ],
+
+    "mainNav": ["learn", "docs", "solutions", "support", "blog"],
+
+    "footer": [
+        {
+            "name": "xtdb",
+            "items": [
+                "solutions",
+                "docs",
+                "blog",
+                "team",
+                "github"
+            ]
+        },
+        {
+            "name": "Learn",
+            "items": [
+                "tutorials",
+                "guides",
+                "concepts",
+                "resources"
+            ]
+        },
+        {
+            "name": "Community",
+            "items": [
+                "discuss",
+                "zulip",
+                "partners",
+                "twitter"
+            ]
+        },
+        {
+            "name": "Support by JUXT",
+            "items": [
+                "production-support",
+                "consulting",
+                "training"
+            ]
+        }
+    ],
+
+    "communitySupportChannels": [
+      "discuss",
+      "zulip",
+      "github",
+      "twitter"
+    ],
+
+    "logos": {
+      "platforms": [
+        {
+          "title": "Red Hat OpenShift",
+          "path": "/images/logos-platforms/redhat-openshift.svg",
+          "url": "https://www.openshift.com/"
+        },
+        {
+          "title": "Google Cloud",
+          "path": "/images/logos-platforms/google-cloud.svg",
+          "url": "https://cloud.google.com"
+        },
+        {
+          "title": "Amazon AWS",
+          "path": "/images/logos-platforms/aws.svg",
+          "url": "https://aws.amazon.com/"
+        },
+        {
+          "title": "Microsoft Azure",
+          "path": "/images/logos-platforms/azure.svg",
+          "url": "https://azure.microsoft.com/"
+        },
+        {
+          "title": "Confluent",
+          "path": "/images/logos-platforms/confluent.svg",
+          "url": "https://www.confluent.io/"
+        }
+      ],
+      
+      "customers": [
+        {
+          "title": "Egeria",
+          "path": "/images/logos-case-studies/egeria2.svg",
+          "url": "/solutions#temporal-metadata-management"
+        },
+        {
+          "title": "180º Insurance",
+          "path": "/images/logos-case-studies/180.svg",
+          "url": "/solutions#insurance-systems"
+        },
+        {
+          "title": "The Sample",
+          "path": "/images/logos-case-studies/thesample.svg",
+          "url": "/solutions#content-management"
+        },
+        {
+          "title": "Avisi",
+          "path": "/images/logos-case-studies/avisi.svg",
+          "url": "/solutions#modular-crm-platform"
+        },
+        {
+          "title": "Lightpad",
+          "path": "/images/logos-case-studies/lightpad2.svg",
+          "url": "/solutions#payments"
+        }
+      ]
+    }
+}

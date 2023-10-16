@@ -1,0 +1,24 @@
+---
+import Icon from './icon.astro'
+const { idname } = Astro.props;
+---
+
+<div class="inline-search flex">
+  <Icon class="search-ab text-slate-500" name="search-nav" />
+  <input class="search-input w-full bg-white text-black rounded-lg px-4 pl-11 pr-2 h-10"
+         type="search"
+         placeholder="Search"
+         id={idname} />
+</div>
+
+<style>
+.search-ab {
+  position: absolute;
+  margin-top: 0.5rem;
+  margin-left: 0.7rem;
+  z-index: 1;
+}
+.inline-search {
+  position: relative;
+}
+</style>

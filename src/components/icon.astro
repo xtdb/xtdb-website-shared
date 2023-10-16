@@ -1,0 +1,9 @@
+---
+const { class: classes, name, size = "sm" } = Astro.props;
+
+const { default: innerHTML } = await import(`../../../public/shared/images/icons/${name}.svg?raw`)
+---
+
+<span class={`icon ${classes}`} aria-hidden="true">
+  <Fragment set:html={innerHTML}/>
+</span>

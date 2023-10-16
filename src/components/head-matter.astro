@@ -1,0 +1,58 @@
+---
+const { metaTitle = 'XTDB', metaDesc, socialImagePath } = Astro.props
+const ogTitle = Astro.url.pathname === "/" ? "XTDB - the open database with temporal graph queries" : metaTitle
+const socialImageUrl = `${Astro.site.origin}${socialImagePath || '/images/social-default.png'}`
+---
+
+<meta charset="utf-8" />
+<link rel="icon" type="image/svg+xml" href="/shared/favicon.svg" />
+
+<!-- TODO -->
+<link rel="alternate" type="application/rss+xml" href="/blog.xml" title="XTDB Blog">
+
+<link rel="apple-touch-icon" href="/shared/apple-touch-icon.png">
+<link rel="sitemap" href="/sitemap-index.xml">
+<link rel="manifest" href="/shared/manifest.webmanifest">
+
+<meta property="og:site_name" content="XTDB" />
+<meta property="og:title" content={ogTitle} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+
+{metaDesc &&
+<>
+  <meta name="description" content={metaDesc} />
+  <meta name="twitter:description" content={metaDesc} />
+  <meta property="og:description" content={metaDesc} />
+</>}
+
+{socialImageUrl &&
+<>
+  <meta property="og:image" content={ socialImageUrl } />
+  <meta property="og:image:alt" content={`Page image for ${metaTitle}`} />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content={socialImageUrl} />
+  <meta name="twitter:image:alt" content={`Page image for ${metaTitle}`} />
+</>}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content={Astro.generator} />
+
+{import.meta.env.PROD && <script async defer data-website-id="fc07c107-01aa-4044-a7b5-3c20aed9d7e4" src="https://bunseki.juxt.pro/umami.js" />}
+
+<script strategy="beforeInteractive">
+  function setDarkTheme() {
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }
+
+  setDarkTheme()
+
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", setDarkTheme)
+</script>

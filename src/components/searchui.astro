@@ -1,0 +1,55 @@
+---
+  import Icon from './icon.astro'
+---
+
+<div class="hidden search" data-search-close="">
+  <a
+    class="search-close"
+    data-search-close=""
+    href="#search-close">
+    <Icon name="close" class="w-8 h-8" /></a>
+    <div class="search-form" data-search-form="">
+      <div class="input-group">
+        <input class="search-input"
+          type="search"
+          placeholder="Search"
+          id="search">
+      </div>
+    </div>
+</div>
+
+<style>
+.search {
+  @apply fixed top-0 left-0 z-50 items-start justify-center w-full h-full py-12 px-6 bg-white/25
+}
+
+.search-close {
+  @apply fixed top-4 right-4 p-2 rounded-full bg-white text-black dark:bg-black dark:text-white no-underline hover:no-underline hover:text-juxt-orange
+}
+
+.search-form {
+  @apply w-full max-w-xl mt-8 p-4 rounded-2xl bg-grey dark:bg-dark-grey m-auto
+}
+
+.input-group {
+  @apply w-full
+}
+.search-input {
+  @apply w-full
+}
+</style>
+
+<script>
+ ;(function () {
+  'use strict'
+
+  const search = document.querySelector('.search')
+  const closeButton = document.querySelector('.search-close')
+  
+  function close (_event) {
+    search.classList.add('hidden')
+  }
+
+  closeButton.addEventListener('click', close)
+})()
+</script>

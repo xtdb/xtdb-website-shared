@@ -1,0 +1,228 @@
+@font-face {
+    font-weight: 400;
+    font-style: normal;
+    font-family: "Atkinson Hyperlegible";
+    src: url("/shared/fonts/Atkinson-Hyperlegible-Regular.woff2") format("woff2");
+    font-display: swap;
+}
+
+@font-face {
+    font-weight: 400;
+    font-style: italic;
+    font-family: "Atkinson Hyperlegible";
+    src: url("/shared/fonts/Atkinson-Hyperlegible-Italic.woff2") format("woff2");
+    font-display: swap;
+}
+
+@font-face {
+    font-weight: 700;
+    font-style: normal;
+    font-family: "Atkinson Hyperlegible";
+    src: url("/shared/fonts/Atkinson-Hyperlegible-Bold.woff2") format("woff2");
+    font-display: swap;
+}
+
+@font-face {
+    font-weight: 400;
+    font-style: normal;
+    font-family: "Source Code Pro";
+    src: url("/shared/fonts/SourceCodePro-Regular.ttf") format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-weight: 400;
+    font-style: italic;
+    font-family: "Source Code Pro";
+    src: url("/shared/fonts/SourceCodePro-Italic.ttf") format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-weight: 700;
+    font-style: normal;
+    font-family: "Source Code Pro";
+    src: url("/shared/fonts/SourceCodePro-Bold.ttf") format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-weight: 400;
+    font-style: normal;
+    font-family: "Space Mono";
+    src: url("/shared/fonts/SpaceMono-Regular.ttf") format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-weight: 400;
+    font-style: italic;
+    font-family: "Space Mono";
+    src: url("/shared/fonts/SourceCodePro-Italic.ttf") format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-weight: 700;
+    font-style: normal;
+    font-family: "Space Mono";
+    src: url("/shared/fonts/SpaceMono-Bold.ttf") format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-weight: 700;
+    font-style: italic;
+    font-family: "Space Mono";
+    src: url("/shared/fonts/SpaceMono-BoldItalic.ttf") format("truetype");
+    font-display: swap;
+}
+
+html {
+    @apply bg-background-orange text-dark-grey text-[16px]
+}
+
+html.dark {
+    @apply bg-dark-grey text-white;
+}
+
+* {
+    @apply border-gray-500
+}
+
+h1, h2, h3, h4, h5, h6 {
+    @apply text-black dark:text-white font-bold font-['Space_Mono']
+}
+
+h1 {
+    @apply text-3xl md:text-4xl mb-2;
+}
+
+h2 {
+    @apply text-2xl mb-2;
+}
+
+h3 {
+    @apply text-xl mb-2;
+}
+
+h4 {
+    @apply text-lg mb-2;
+}
+
+em {
+    @apply text-black dark:text-white not-italic;
+}
+
+ul {
+    @apply list-disc list-outside my-2 pl-8
+}
+
+ol {
+    @apply list-decimal list-outside my-4 ml-8
+}
+
+p {
+    @apply leading-relaxed mb-2
+}
+
+a {
+    @apply hover:underline text-juxt-orange
+}
+
+.section {
+    @apply pt-4 pb-6 md:pb-20
+}
+
+hr.tick {
+    @apply my-4 w-10 border-gray-500
+}
+
+hr.wave {
+    @apply bg-center bg-repeat-x bg-wave border-0 h-2 w-32 my-4 mx-auto;
+}
+
+.input-group label, .input-group input {
+    @apply block w-full
+}
+
+.input-group input, .input-group textarea {
+    @apply px-3 pt-2.5 pb-2 border border-stone-600 rounded-lg bg-black text-stone-50
+    text-base leading-5 appearance-none placeholder:text-stone-600
+}
+
+.homepage-button {
+    @apply flex justify-center items-center px-4 py-3 rounded-lg text-white font-bold text-sm uppercase no-underline bg-button-dark
+}
+
+.homepage-button.white {
+    @apply text-black bg-button-white
+}
+
+.homepage-button.outline {
+    @apply border border-black
+}
+
+pre.astro-code {
+    @apply p-2 overflow-auto
+}
+
+.icon {
+    @apply inline-flex align-middle
+}
+
+.icon svg {
+    @apply fill-current h-full w-full
+}
+
+.icon svg * {
+    @apply fill-current
+}
+
+.algolia-autocomplete {
+    @apply w-full
+}
+
+.toc {
+    @apply m-0 list-none pl-0
+}
+
+.header-link {
+    @apply border-l-2 border-gray-500 py-1 pl-2
+}
+
+.current-header-link {
+    @apply border-juxt-orange bg-gray-200 dark:bg-transparent
+}
+
+.depth-3 {
+    @apply pl-6
+}
+
+.header-link a {
+    @apply text-gray-500
+}
+
+.current-header-link a {
+    @apply text-juxt-orange
+}
+
+pre.highlight code.hljs {
+    @apply p-0
+}
+
+.prose li p, .prose td p {
+    @apply my-0
+}
+
+.prose img {
+    @apply mx-auto
+}
+
+.prose iframe {
+    @apply mx-auto
+}
+
+.line-through {
+    text-decoration-line: line-through;
+}

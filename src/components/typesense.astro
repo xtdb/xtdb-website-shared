@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typesense-docsearch.js@1/dist/cdn/docsearch.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/typesense-docsearch.js@1/dist/cdn/docsearch.min.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    const typesense =
+    {
+      "apiKey": "0zVHpGQFDUhgP9hazp1laLklfy00AlGD",
+      "host": "xtagzc25w84ufq37p-1.a1.typesense.net",
+      "collectionName": "xtdb-website-ts-index"
+    }
+
+    docsearch({
+      inputSelector: '#search',
+      typesenseCollectionName: typesense['collectionName'],
+      layout: 'columns',
+      typesenseServerConfig: {
+        nodes: [{
+          host: typesense['host'],
+          port: '443',
+          protocol: 'https'
+        }],
+        apiKey: typesense['apiKey'],
+      },
+      typesenseSearchParams: {
+        per_page: 10
+      }
+    });
+
+    docsearch({
+      inputSelector: '#search-mobile',
+      typesenseCollectionName: typesense['collectionName'],
+      layout: 'columns',
+      typesenseServerConfig: {
+        nodes: [{
+          host: typesense['host'],
+          port: '443',
+          protocol: 'https'
+        }],
+        apiKey: typesense['apiKey'],
+      },
+      typesenseSearchParams: {
+        per_page: 10
+      }
+    });
+  })
+</script>

@@ -1,0 +1,30 @@
+---
+import HeadMatter from '/shared/src/components/head-matter.astro'
+import Header from '/shared/src/components/header.astro'
+import Footer from '/shared/src/components/footer.astro'
+import TypeSense from '/shared/src/components/typesense.astro'
+import SearchUI from '/shared/src/components/searchui.astro'
+import '/shared/src/styles/site.css'
+const {title, metaDesc, socialImagePath } = Astro.props
+---
+
+<html lang="en">
+	<head>
+		<HeadMatter metaTitle={title} metaDesc={metaDesc} socialImagePath={socialImagePath}/>
+
+		<title>{title}</title>
+	</head>
+
+	<body>
+		<Header />
+
+		<main id="main-content" class="my-8 container">
+			<slot />
+		</main>
+
+		<Footer />
+		<SearchUI />
+		<!--TODO: Add <BodyAssets /> -->
+		<TypeSense />
+	</body>
+</html>
