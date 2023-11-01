@@ -4,7 +4,9 @@ const { idname } = Astro.props;
 ---
 
 <div class="inline-search flex">
-  <Icon class="search-ab text-slate-500" name="search-nav" />
+  <div class="search-ab">
+    <Icon class="text-slate-500" name="search-nav" />
+  </div>
   <input class="search-input w-full bg-white text-black rounded-lg px-4 pl-11 pr-2 h-10"
          type="search"
          placeholder="Search"
@@ -13,6 +15,7 @@ const { idname } = Astro.props;
 
 <style>
 .search-ab {
+  pointer-events: none;
   position: absolute;
   margin-top: 0.5rem;
   margin-left: 0.7rem;
