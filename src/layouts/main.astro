@@ -3,7 +3,6 @@ import HeadMatter from '/shared/src/components/head-matter.astro'
 import Header from '/shared/src/components/header.astro'
 import Footer from '/shared/src/components/footer.astro'
 import TypeSense from '/shared/src/components/typesense.astro'
-import SearchUI from '/shared/src/components/searchui.astro'
 import '/shared/src/styles/site.css'
 const {title, metaDesc, socialImagePath } = Astro.props
 ---
@@ -23,7 +22,6 @@ const {title, metaDesc, socialImagePath } = Astro.props
 		</main>
 
 		<Footer />
-		<SearchUI />
 		<!--TODO: Add <BodyAssets /> -->
 		<TypeSense />
 	</body>
