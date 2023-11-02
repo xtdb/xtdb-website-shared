@@ -226,3 +226,7 @@ pre.highlight code.hljs {
 .line-through {
     text-decoration-line: line-through;
 }
+
+.typesense-docsearch-footer {
+    display:none;
+}
