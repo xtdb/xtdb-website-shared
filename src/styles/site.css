@@ -91,7 +91,8 @@ html.dark {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    @apply text-black dark:text-white font-bold font-['Space_Mono']
+    @apply text-black dark:text-white font-bold font-['Space_Mono'] ;
+    font-variant-ligatures: none;
 }
 
 h1 {
