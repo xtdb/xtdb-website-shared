@@ -38,11 +38,14 @@ export default function adocIntegration() {
                                 .process(doc.convert())
 
             let headings = []
-            function pushHeadings(section) {
-              headings.push({depth: section.getLevel() + 1, html: section.getTitle(), slug: section.getId()})
-              section.getSections().forEach(pushHeadings)
+            function getHeadings(section) {
+              return {
+                html: section.getTitle(),
+                slug: section.getId(),
+                children: section.getSections().map(getHeadings),
+              };
             }
-            doc.getSections().forEach(pushHeadings)
+            headings = doc.getSections().map(getHeadings)
 
             return {
               code: `
