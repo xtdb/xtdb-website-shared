@@ -4,7 +4,11 @@ import Header from '/shared/src/components/header.astro'
 import Footer from '/shared/src/components/footer.astro'
 import TypeSense from '/shared/src/components/typesense.astro'
 import '/shared/src/styles/site.css'
-const {title, metaDesc, socialImagePath } = Astro.props
+const {frontmatter = {}, ...props} = Astro.props
+
+const title = props.title || frontmatter.title
+const metaDesc = props.metaDesc || frontmatter.metaDesc
+const socialImagePath = props.socialImagePath || frontmatter.socialImagePath
 ---
 
 <html lang="en">
