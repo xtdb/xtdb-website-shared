@@ -37,20 +37,18 @@ export default function adocIntegration() {
               attributes: {
                 showtitle: true,
               }})
+
             const { value: html } =
                   await rehype().data('settings', {fragment: true})
                                 .use(rehypeHighlight, {languages: {clojure: clojureLang}})
                                 .process(doc.convert())
 
             let headings = []
-            function getHeadings(section) {
-              return {
-                html: section.getTitle(),
-                slug: section.getId(),
-                children: section.getSections().map(getHeadings),
-              };
+            function pushHeadings(section) {
+              headings.push({depth: section.getLevel() + 1, text: section.getTitle(), slug: section.getId()})
+              section.getSections().forEach(pushHeadings)
             }
-            headings = doc.getSections().map(getHeadings)
+            doc.getSections().forEach(pushHeadings)
 
             return {
               code: `
