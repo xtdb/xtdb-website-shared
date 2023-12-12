@@ -9,12 +9,6 @@ type Analytics = {
     siteId: string
 }
 
-type TypeSense = {
-    apiKey: string,
-    host: string,
-    collectionName: string,
-}
-
 type Site = {
     name: string,
     url: string,
@@ -22,7 +16,6 @@ type Site = {
     authorEmail: string,
     feed: Feed,
     analytics: Analytics,
-    typesense: TypeSense
 }
 
 type Destination = {

@@ -47,11 +47,6 @@
           "path": "/blog/"
         },
         {
-          "id": "search",
-          "label": "Search",
-          "path": "#search"
-        },
-        {
           "id": "privacy",
           "label": "Privacy",
           "path": "/privacy"

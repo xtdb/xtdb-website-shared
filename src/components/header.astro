@@ -3,7 +3,6 @@ import Icon from './icon.astro'
 import XTDBLogo from './xtdb-logo.astro'
 import HomepageButton from './homepage-button.astro';
 import { getLinkActiveState } from './helpers.ts'
-import Search from './inline-searchui.astro'
 
 const { transparent = false } = Astro.props
 
@@ -64,9 +63,6 @@ const mobile_anchor_classes = "text-white text-lg font-bold no-underline transit
             <button class="dark-mode">Dark</button>
             <button class="system-mode">System</button>
           </div>
-
-          <Search idname="search"/>
-
         </div>
       </nav>
 
@@ -116,10 +112,6 @@ const mobile_anchor_classes = "text-white text-lg font-bold no-underline transit
                 <option value="dark-mode">Dark</option>
                 <option value="system-mode">System</option>
               </select>
-            </div>
-
-            <div class="justify-center items-center">
-              <Search idname="search-mobile"/>
             </div>
           </div>
         </nav>
@@ -215,7 +207,6 @@ const mobile_anchor_classes = "text-white text-lg font-bold no-underline transit
   const menuButton = document.querySelector('.menu-button')
   const navComponent = document.querySelector('.mobile-nav')
   const navOverlay = document.querySelector('.mobile-nav-overlay')
-  const searchButtons = document.querySelectorAll('.inline-search')
   const themeToggle = document.querySelector('.theme-toggle')
   const themeToggleMenu = document.querySelector('.theme-toggle-menu')
   const themeSelect = document.querySelector('.theme-select')
@@ -268,10 +259,6 @@ const mobile_anchor_classes = "text-white text-lg font-bold no-underline transit
 
   function handleDocumentClick (_event) {
     close()
-  }
-
-  function handleSearchButtonClick (event) {
-    event.stopImmediatePropagation()
   }
 
   function openThemeMenu (event) {
@@ -329,9 +316,6 @@ const mobile_anchor_classes = "text-white text-lg font-bold no-underline transit
   }
 
   menuButton.addEventListener('click', handleMenuButtonClick)
-  searchButtons.forEach(function (searchButton, idx) {
-    searchButton.addEventListener('click', handleSearchButtonClick)
-  })
   themeToggle.addEventListener('click', openThemeMenu)
   menuDarkToggle.addEventListener('click', setDark)
   menuLightToggle.addEventListener('click', setLight)
