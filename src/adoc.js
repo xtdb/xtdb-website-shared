@@ -31,7 +31,12 @@ export default function adocIntegration() {
 
           async getRenderModule({ contents, fileUrl }) {
             const { body } = getEntryInfo({ contents, fileUrl });
-            const doc = adoc.load(body, {attributes: {showtitle: true}})
+            const doc = adoc.load(body, {
+              // Required to allow `include` directives for files outside of the root directory
+              safe: 'unsafe',
+              attributes: {
+                showtitle: true,
+              }})
             const { value: html } =
                   await rehype().data('settings', {fragment: true})
                                 .use(rehypeHighlight, {languages: {clojure: clojureLang}})
