@@ -7,6 +7,65 @@ import { rehype } from 'rehype'
 import rehypeHighlight from 'rehype-highlight'
 import clojureLang from 'highlight.js/lib/languages/clojure'
 
+function shouldStrip(block) {
+  return block.getAttribute('string') === 'unescape'
+}
+
+// If a source block has the attribute `string` set to `unescape` then:
+// - Surrounding double quotes are removed
+// - Double quotes are unescaped
+// Useful for including a string from a clojure test file.
+//
+// E.g:
+// [source,json,string=unescape]
+// ----
+// "{
+//    \"foo|": \"bar\"
+//  }"
+// ----
+//
+// =>
+//
+// [source,json,string=unescape]
+// ----
+// {
+//   "foo": "bar"
+// }
+// ----
+function stringUnescapeProcessor (registry) {
+  registry.treeProcessor(function () {
+    var self = this
+    self.process(function (doc) {
+      var blocks = doc.findBy({ 'context': 'listing', 'style': 'source' }, shouldStrip)
+
+      for (var i = 0; i < blocks.length; i++) {
+        var source = blocks[i].getSource()
+
+        source = source.trim()
+
+        // Remove the extra space on all lines except the first
+        // "{
+        //     foo: \"bar\"
+        //  }"
+        if (source.match(/^"[^\s]/g)) {
+          source = source.replace(/\n /g, '\n')
+        }
+        // Remove all unescaped double quotes (e.g. surrounding ones)
+        source = source.replaceAll(/(^|[^\\])"/g, '$1')
+        // Unescape double quotes
+        source = source.replaceAll(/\\"/g, '"')
+
+        blocks[i].lines = source.split('\n')
+      }
+
+      return doc
+    })
+  })
+}
+
+const registry = adoc.Extensions.create()
+stringUnescapeProcessor(registry)
+
 function getEntryInfo({ fileUrl, contents }) {
   const parsed = matter(contents);
   return {
@@ -34,6 +93,7 @@ export default function adocIntegration() {
             const doc = adoc.load(body, {
               // Required to allow `include` directives for files outside of the root directory
               safe: 'unsafe',
+              extension_registry: registry,
               attributes: {
                 showtitle: true,
               }})
