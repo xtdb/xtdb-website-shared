@@ -7,6 +7,8 @@ import { rehype } from 'rehype'
 import rehypeHighlight from 'rehype-highlight'
 import clojureLang from 'highlight.js/lib/languages/clojure'
 
+import Xtdb from '@xtdb/xtdb'
+
 function getEntryInfo({ fileUrl, contents }) {
   const parsed = matter(contents);
   return {
@@ -16,6 +18,21 @@ function getEntryInfo({ fileUrl, contents }) {
     rawData: parsed.matter,
   };
 }
+
+class SqlBlockMacroProcessor extends adoc.Extensions.BlockMacroProcessor {
+  process(parent, target, attrs) {
+    console.log('processing -------')
+    // Here, you can process the SQL content. For now, let's just stub it out.
+    const sqlContent = target; // The SQL content from the macro
+    const stubbedTable = this.createStubbedTable(sqlContent);
+    console.log(this.createBlock(parent, 'paragraph', 'Hello world'))
+    return this.createBlock(parent, 'paragraph', 'Hello world')
+  }
+}
+
+adoc.Extensions.register(function() {
+  this.blockMacro('sql', new SqlBlockMacroProcessor())
+});
 
 export default function adocIntegration() {
   return {
@@ -37,6 +54,16 @@ export default function adocIntegration() {
               attributes: {
                 showtitle: true,
               }})
+
+            const xtdb = new Xtdb.default('http:localhost:3000')
+            console.log(await xtdb.status())
+
+            doc.getBlocks()
+               .filter((block) => block.getAttribute('mode') == 'submit')
+               .forEach((block) => ({
+                 attrs: block.getAttributes(),
+                 content: block.getContent()
+               }))
 
             const { value: html } =
                   await rehype().data('settings', {fragment: true})
