@@ -6,6 +6,7 @@ const adoc = Asciidoctor()
 import { rehype } from 'rehype'
 import rehypeHighlight from 'rehype-highlight'
 import clojureLang from 'highlight.js/lib/languages/clojure'
+import rr from '../../lib/railroad/railroad.js'
 
 function getEntryInfo({ fileUrl, contents }) {
   const parsed = matter(contents);
@@ -16,6 +17,18 @@ function getEntryInfo({ fileUrl, contents }) {
     rawData: parsed.matter,
   };
 }
+
+adoc.Extensions.register(function () {
+  this.block (function () {
+    const self = this
+    self.named('railroad')
+    self.onContext('listing')
+    self.process(function (parent, reader) {
+      const diag = eval(`(rr) => {${reader.getString()}}`)(rr)
+      return self.createBlock(parent, 'pass', diag.toString())
+    })
+  })
+})
 
 export default function adocIntegration() {
   return {
