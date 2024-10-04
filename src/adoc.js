@@ -36,6 +36,7 @@ export default function adocIntegration() {
               safe: 'unsafe',
               attributes: {
                 showtitle: true,
+                stem: 'latexmath',
               }})
 
             const { value: html } =
@@ -79,4 +80,3 @@ export async function Content (props) {
     }
   }
 }
-
