@@ -6,6 +6,7 @@ const adoc = Asciidoctor()
 import { rehype } from 'rehype'
 import rehypeHighlight from 'rehype-highlight'
 import clojureLang from 'highlight.js/lib/languages/clojure'
+import elixirLang from 'highlight.js/lib/languages/elixir'
 import rr from '../../lib/railroad/railroad.js'
 
 function getEntryInfo({ fileUrl, contents }) {
@@ -54,7 +55,8 @@ export default function adocIntegration() {
 
             const { value: html } =
                   await rehype().data('settings', {fragment: true})
-                                .use(rehypeHighlight, {languages: {clojure: clojureLang}})
+                  .use(rehypeHighlight, {languages: {clojure: clojureLang,
+						     elixir: elixirLang}})
                                 .process(doc.convert())
 
             let headings = []
