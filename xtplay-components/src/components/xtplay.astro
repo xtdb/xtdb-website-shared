@@ -1,0 +1,52 @@
+---
+// The OutputTable component is added by default by the XtPlay
+// We import it here, then use it in a template to ensure it's loaded
+import OutputTable from './xtplay/output-table.astro';
+import { gensym } from './xtplay/utils';
+
+const { magicContext, autoLoad } = Astro.props;
+
+var props = {};
+
+if (magicContext) {
+    props['data-magic-context'] = magicContext;
+}
+if (autoLoad) {
+    props['data-auto-load'] = 'true';
+}
+---
+{/* NOTE: This doesn't render the OutputTable, but it ensures the component is loaded */}
+<template>
+    <OutputTable />
+</template>
+
+<xtplay-embed class="not-content" data-id={gensym()} {...props}>
+    <div class="flex flex-col gap-1 p-2 rounded-sm border border-gray-300 dark:border-gray-600"
+         data-id="content">
+        <slot />
+        <div class="hidden pt-1" data-id="xtplay-error" />
+    </div>
+</xtplay-embed>
+
+<script>
+    import { getTheme, onThemeChange } from "../utils.ts"
+
+    // TODO: Put this somewhere else
+    function set_hljs_theme(theme) {
+        console.log('Setting theme to', theme);
+        if (theme == "dark") {
+            document.getElementById('hl-dark').removeAttribute("disabled");
+            document.getElementById('hl-light').setAttribute("disabled", "disabled");
+        } else {
+            document.getElementById('hl-light').removeAttribute("disabled");
+            document.getElementById('hl-dark').setAttribute("disabled", "disabled");
+        }
+    }
+    // TODO: Figure out dynamically changing the theme
+    //       For context we had an issue where swup was taking ~2s to load a page
+    //       The issue was that it was waiting for one of the hljs themes to load
+    //       Vendoring the css didn't fix the issue so for now I'm disabling theme switching and just always using `atom-dark`
+    //       It's a little harder to read on light mode but not too bad
+    //set_hljs_theme(getTheme());
+    //onThemeChange(set_hljs_theme);
+</script>

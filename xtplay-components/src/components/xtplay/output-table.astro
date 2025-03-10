@@ -1,0 +1,28 @@
+---
+---
+{/* Tag name should start with xtplay-output */}
+<xtplay-output-table style="display: none;" />
+
+<script>
+    import { XtPlayOutput } from "./xtplay.js"
+    import { makeTable } from "../xtplay/table.js"
+    import { makeError } from "../xtplay/utils.js"
+
+    class XtPlayOutputTable extends XtPlayOutput {
+        render(results) {
+            try {
+                this.innerHTML = ''
+                    + '<div class="bg-gray-100 dark:bg-gray-800 rounded-md overflow-x-auto">'
+                    + makeTable(results)
+                    + '</div>';
+            } catch (e) {
+                this.innerHTML = makeError(
+                    "Result Error",
+                    "Uh oh! Failed to read the result. Please try again or contact us to sort it out.",
+                );
+            }
+        }
+    }
+
+    customElements.define('xtplay-output-table', XtPlayOutputTable);
+</script>

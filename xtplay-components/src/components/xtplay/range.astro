@@ -1,0 +1,30 @@
+---
+import RawRange from './raw-range.astro'
+---
+<xtplay-input-range>
+    <RawRange {...Astro.props} />
+</xtplay-input-range>
+
+<script>
+    import { XtPlayInput } from "./xtplay.js";
+
+    class XtPlayInputRange extends XtPlayInput {
+        connectedCallback() {
+            super.connectedCallback();
+
+            let slider = this.querySelector('input[type="range"]');
+            slider.addEventListener("input", () => {
+                this.set(slider.value);
+            });
+            this.name = slider.name;
+            this._registry.setValue(this.name, slider.value);
+        }
+
+        set(value) {
+            this._registry.setValue(this.name, value);
+            return value;
+        }
+    }
+
+    customElements.define('xtplay-input-range', XtPlayInputRange);
+</script>

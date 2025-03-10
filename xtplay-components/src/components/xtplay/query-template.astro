@@ -1,0 +1,86 @@
+---
+import ArrowTopRightOnSquare from 'astro-heroicons/solid/ArrowTopRightOnSquare.astro';
+import { gensym } from './utils';
+
+const { q } = Astro.props;
+
+const id = gensym();
+---
+<div class="p-2 bg-gray-100 dark:bg-gray-800 rounded-md">
+    <xtplay-query-template data-id={id} data-template={q.trim()} />
+</div>
+
+{/* Buttons: */}
+<div class="flex flex-row gap-2">
+    <span data-parent-id={id}
+          data-id="open-in-xtplay"
+          class="cursor-pointer underline">
+        Open in xt-play
+        <ArrowTopRightOnSquare class="size-3" />
+    </span>
+    <svg data-parent-id={id}
+         data-id="spinner"
+         class="opacity-0 transition delay-200 animate-spin h-5 w-5 text-gray"
+         xmlns="http://www.w3.org/2000/svg"
+         fill="none"
+         viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+</div>
+
+<script>
+    import { XtPlayComponent } from "./xtplay.js"
+    import hljs from "highlight.js/lib/core"
+    import hljsSql from "highlight.js/lib/languages/sql"
+    import Mustache from 'mustache';
+
+    hljs.registerLanguage('sql', hljsSql);
+
+    // Disable HTML escaping
+    Mustache.escape = function(text) {return text;};
+
+    class XtPlayQueryTemplate extends XtPlayComponent {
+        connectedCallback() {
+            super.connectedCallback();
+            this._registry.registerTemplate(this);
+
+            this.spinner = document.querySelector(`[data-parent-id="${this.dataset.id}"][data-id="spinner"]`);
+
+            const edit_button = document.querySelector(`[data-parent-id="${this.dataset.id}"][data-id="open-in-xtplay"]`);
+            edit_button.addEventListener('click', () => {
+                this._registry.openInXtPlay();
+            });
+
+            this._registry.on("fetchStart", () => {
+                this._showSpinner();
+            });
+
+            this._registry.on("fetchComplete", () => {
+                this._hideSpinner();
+            });
+        }
+
+        _showSpinner() {
+            this.spinner.classList.remove('opacity-0');
+        }
+
+        _hideSpinner() {
+            this.spinner.classList.add('opacity-0');
+        }
+
+        render(view) {
+            // Render the template
+            let query = Mustache.render(this.dataset.template, view);
+
+            // Render this component
+            let highlight = hljs.highlight(query, {language: 'sql'});
+            this.innerHTML = '<pre class="overflow-x-auto text-sm">' + highlight.value + '</pre>';
+
+            // Return the rendered query
+            return query;
+        }
+    }
+
+    customElements.define('xtplay-query-template', XtPlayQueryTemplate);
+</script>
