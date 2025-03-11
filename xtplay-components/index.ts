@@ -1,8 +1,3 @@
-export { default as Head } from './src/components/Head.astro';
-export { default as MobileTableOfContents } from './src/components/mobile-table-of-contents.astro';
-export { default as TableOfContents } from './src/components/table-of-contents.astro';
-export { default as Tabcssfix } from './src/components/tabcssfix.astro';
-export { default as TabbedExample } from './src/components/tabbed-example.astro';
 export { default as Xtplay } from './src/components/xtplay.astro';
 export { default as Checkbox } from './src/components/xtplay/checkbox.astro';
 export { default as DateRange } from './src/components/xtplay/date-range.astro';
@@ -15,4 +10,3 @@ export { default as RawRange } from './src/components/xtplay/raw-range.astro';
 export { default as QueryTemplate } from './src/components/xtplay/query-template.astro';
 export { default as Text } from './src/components/xtplay/text.astro';
 export { default as Txs } from './src/components/xtplay/txs.astro';
-export { default as List } from './src/components/table-of-contents/list.astro';
