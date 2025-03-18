@@ -31,10 +31,13 @@ let themeObj = {
     },
     // Always show the cursor
     ".cm-cursor": {
-        display: "block",
+        display: "none",
     },
-    ".cm-cursorLayer": {
-        animation: "steps(1) cm-blink 1.2s infinite",
+    "&.cm-focused .cm-cursor": {
+        display: "block"
+    },
+    "&.cm-focused .cm-cursorLayer": {
+        animation: "steps(1) cm-blink 1.2s infinite"
     },
 }
 
@@ -76,7 +79,7 @@ let extensions = [
 ];
 
 interface Params {
-    initialText: String;
+    initialText: string;
     parent: HTMLElement;
 }
 
