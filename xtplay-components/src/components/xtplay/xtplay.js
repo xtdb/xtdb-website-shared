@@ -279,13 +279,16 @@ class XtPlayRegistry {
     }
 
     _registerQuery(el) {
+        console.log(`Attempting to register query for element:`, el);
         if (this.query) {
+            console.warn('Query already exists:', this.query);
             if (this.isTemplate) {
                 throw Error("Template already exists in registry");
             } else {
                 throw Error("Query already exists in registry");
             }
         } else {
+            console.log('Registering new query');
             this.query = el;
         }
     }
@@ -354,7 +357,10 @@ function makeRegistry() {
         }
 
         if (!(id in currentXtplayRegistry)) {
+            console.log(`Creating new registry for ${id}`);
             currentXtplayRegistry[id] = new XtPlayRegistry(parent);
+        } else {
+            console.log(`Using existing registry for ${id}`);
         }
         return currentXtplayRegistry[id];
     }
@@ -374,12 +380,22 @@ if (typeof window !== 'undefined') {
     const initInterval = setInterval(() => {
         if (window.swup) {
             clearInterval(initInterval);
+            console.log('Swup initialized, setting up hooks');
             
             // Clean up before content is replaced
             window.swup.hooks.before('content:replace', () => {
+                console.log('Before content:replace - cleaning up components');
+                console.log('Current registries:', Object.keys(currentXtplayRegistry));
+                
                 // Clean up all existing components
                 for (const id in currentXtplayRegistry) {
                     const registry = currentXtplayRegistry[id];
+                    console.log(`Cleaning up registry ${id}:`, {
+                        hasQuery: !!registry.query,
+                        numOutputs: registry.outputs.length,
+                        numTxs: registry.txs.length
+                    });
+                    
                     // Clear event callbacks
                     registry.eventCallbacks = {};
                     // Clear query and outputs
@@ -391,10 +407,12 @@ if (typeof window !== 'undefined') {
                 }
                 // Clear the registry
                 clearRegistry();
+                console.log('Registry cleared');
             });
 
             // Reinitialize after content is replaced
             window.swup.hooks.after('content:replace', () => {
+                console.log('After content:replace - reinitializing registry');
                 registry = makeRegistry();
             });
         }
