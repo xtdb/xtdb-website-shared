@@ -339,8 +339,10 @@ class XtPlayRegistry {
     }
 }
 
+let currentXtplayRegistry = {};
+
 function makeRegistry() {
-    let xtplayRegistry = {};
+    console.log ("makeRegistry")
     let registry = function(el) {
         let parent = el.closest("xtplay-embed");
         if (!parent) {
@@ -352,30 +354,50 @@ function makeRegistry() {
             throw Error("Parent xtplay-embed must have unique data-id set");
         }
 
-        if (!(id in xtplayRegistry)) {
-            xtplayRegistry[id] = new XtPlayRegistry(parent);
+        if (!(id in currentXtplayRegistry)) {
+            currentXtplayRegistry[id] = new XtPlayRegistry(parent);
         }
-        return xtplayRegistry[id];
+        return currentXtplayRegistry[id];
     }
-    return registry
+    return registry;
 }
 
 var registry = makeRegistry();
 function clearRegistry() {
+    // Clear all existing registries
+    currentXtplayRegistry = {};
     registry = makeRegistry();
 }
 
 // Handle Swup page transitions
 if (typeof window !== 'undefined') {
-    document.addEventListener('swup:willReplaceContent', () => {
-        // Cleanup before page content is replaced
-        clearRegistry();
-    });
-
-    document.addEventListener('swup:contentReplaced', () => {
-        // Reinitialize after new content is loaded
-        registry = makeRegistry();
-    });
+    // Wait for Swup to be initialized
+    const initInterval = setInterval(() => {
+        if (window.swup) {
+            clearInterval(initInterval);
+            
+            // Register hooks
+            window.swup.hooks.before('content:replace', () => {
+                // Clean up all existing components
+                for (const id in currentXtplayRegistry) {
+                    const registry = currentXtplayRegistry[id];
+                    // Clear event callbacks
+                    registry.eventCallbacks = {};
+                    // Clear query and outputs
+                    registry.query = null;
+                    registry.outputs = [];
+                    registry.txs = [];
+                    registry.magic_txs = [];
+                    registry.renderedOutputs = false;
+                }
+                // Clear the registry
+                clearRegistry();
+                
+                // Reinitialize after content is replaced
+                registry = makeRegistry();
+            });
+        }
+    }, 100); // Check every 100ms
 }
 
 class XtPlayComponent extends HTMLElement {
