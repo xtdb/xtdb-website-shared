@@ -375,7 +375,7 @@ if (typeof window !== 'undefined') {
         if (window.swup) {
             clearInterval(initInterval);
             
-            // Register hooks
+            // Clean up before content is replaced
             window.swup.hooks.before('content:replace', () => {
                 // Clean up all existing components
                 for (const id in currentXtplayRegistry) {
@@ -391,8 +391,10 @@ if (typeof window !== 'undefined') {
                 }
                 // Clear the registry
                 clearRegistry();
-                
-                // Reinitialize after content is replaced
+            });
+
+            // Reinitialize after content is replaced
+            window.swup.hooks.after('content:replace', () => {
                 registry = makeRegistry();
             });
         }
