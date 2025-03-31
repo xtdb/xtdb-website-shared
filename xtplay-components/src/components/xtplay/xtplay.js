@@ -365,6 +365,19 @@ function clearRegistry() {
     registry = makeRegistry();
 }
 
+// Handle Swup page transitions
+if (typeof window !== 'undefined') {
+    document.addEventListener('swup:willReplaceContent', () => {
+        // Cleanup before page content is replaced
+        clearRegistry();
+    });
+
+    document.addEventListener('swup:contentReplaced', () => {
+        // Reinitialize after new content is loaded
+        registry = makeRegistry();
+    });
+}
+
 class XtPlayComponent extends HTMLElement {
     connectedCallback() {
         // Get the registry
