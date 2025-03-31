@@ -342,7 +342,6 @@ class XtPlayRegistry {
 let currentXtplayRegistry = {};
 
 function makeRegistry() {
-    console.log ("makeRegistry")
     let registry = function(el) {
         let parent = el.closest("xtplay-embed");
         if (!parent) {
