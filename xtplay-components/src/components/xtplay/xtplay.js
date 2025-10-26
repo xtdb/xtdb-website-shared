@@ -1,4 +1,5 @@
 import { magicElementsAbove, parseSQLTxs, makeError, xtplay_url, runXtPlay, debouncePromise } from "./utils"
+import { makeTable } from "./table.js"
 
 // From my experiments it seems like web-components' constructors can be called in any order
 //
@@ -370,35 +371,36 @@ function clearRegistry() {
 
 // Handle Swup page transitions
 if (typeof window !== 'undefined') {
-    // Wait for Swup to be initialized
-    const initInterval = setInterval(() => {
-        if (window.swup) {
-            clearInterval(initInterval);
-            
-            // Clean up before content is replaced
-            window.swup.hooks.before('content:replace', () => {
-                // Clean up all existing components
-                for (const id in currentXtplayRegistry) {
-                    const registry = currentXtplayRegistry[id];
-                    // Clear event callbacks
-                    registry.eventCallbacks = {};
-                    // Clear query and outputs
-                    registry.query = null;
-                    registry.outputs = [];
-                    registry.txs = [];
-                    registry.magic_txs = [];
-                    registry.renderedOutputs = false;
-                }
-                // Clear the registry
-                clearRegistry();
-            });
+    const setupSwup = () => {
+        // Clean up before content is replaced
+        window.swup.hooks.on('content:replace', () => {
+            // Clean up all existing components
+            for (const id in currentXtplayRegistry) {
+                const registry = currentXtplayRegistry[id];
+                // Clear event callbacks
+                registry.eventCallbacks = {};
+                // Clear query and outputs
+                registry.query = null;
+                registry.outputs = [];
+                registry.txs = [];
+                registry.magic_txs = [];
+                registry.renderedOutputs = false;
+            }
+            // Clear the registry
+            clearRegistry();
+        }, { before: true });
 
-            // Reinitialize after content is replaced
-            window.swup.hooks.after('content:replace', () => {
-                registry = makeRegistry();
-            });
-        }
-    }, 100); // Check every 100ms
+        // Reinitialize after content is replaced
+        window.swup.hooks.on('content:replace', () => {
+            registry = makeRegistry();
+        });
+    };
+
+    if (window.swup) {
+        setupSwup();
+    } else {
+        document.addEventListener('swup:enable', setupSwup);
+    }
 }
 
 class XtPlayComponent extends HTMLElement {
@@ -421,6 +423,28 @@ class XtPlayOutput extends XtPlayComponent {
         this._registry.registerOutput(this);
     }
 
+}
+
+// Define XtPlayOutputTable here so it's always available for dynamic creation
+class XtPlayOutputTable extends XtPlayOutput {
+    render(results) {
+        try {
+            this.innerHTML = ''
+                + '<div class="bg-gray-100 dark:bg-gray-800 rounded-md overflow-x-auto">'
+                + makeTable(results)
+                + '</div>';
+        } catch (e) {
+            this.innerHTML = makeError(
+                "Result Error",
+                "Uh oh! Failed to read the result. Please try again or contact us to sort it out.",
+            );
+        }
+    }
+}
+
+// Register the custom element immediately when this module loads
+if (typeof window !== 'undefined' && !customElements.get('xtplay-output-table')) {
+    customElements.define('xtplay-output-table', XtPlayOutputTable);
 }
 
 export { registry, clearRegistry, XtPlayComponent, XtPlayInput, XtPlayOutput }
